@@ -15,8 +15,8 @@ import java.util.List;
 @Controller
 @RequestMapping(value="/medico")
 public class MedicoController {
+
     @Autowired
-    //private IMedicoDAO service;
     private IMedicoService service;
 
     @GetMapping(value="/create" )
@@ -25,17 +25,17 @@ public class MedicoController {
         model.addAttribute("medico",medico);
         return "medico/form";
     }
+
     @PostMapping(value="/save" )
     public String save(Medico medico,Model model){
-        //si hago con dao realizo un if con el id==null
         try{
             service.save(medico);
         }catch (Exception ex){
             model.addAttribute("error: ",ex.toString());
         }
-
         return "redirect:/medico/list";
     }
+
     @GetMapping(value="/retrieve/{id}" )
     public String retrieve(@PathVariable(value = "id") Integer id,
                            Model model){
@@ -43,6 +43,7 @@ public class MedicoController {
         model.addAttribute("medico",medico);
         return "medico/card";
     }
+
     @GetMapping(value="/update/{id}" )
     public String update(@PathVariable(value = "id") Integer id,
                          Model model){
@@ -50,6 +51,7 @@ public class MedicoController {
         model.addAttribute("medico",medico);
         return "medico/form";
     }
+
     @GetMapping(value="/delete" )
     public String delete(@PathVariable(value = "id") Integer id,
                          Model model){
@@ -58,8 +60,7 @@ public class MedicoController {
         }catch (Exception ex){
             model.addAttribute("error: ",ex.toString());
         }
-
-        return "redirect:/medico/List";
+        return "redirect:/medico/list";
     }
 
     @GetMapping(value="/list" )

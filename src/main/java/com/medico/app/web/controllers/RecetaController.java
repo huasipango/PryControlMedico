@@ -17,9 +17,8 @@ import java.util.List;
 @Controller
 @RequestMapping(value="/receta")
 public class RecetaController {
-//servicio => Inyeccion de dependencias
+
     @Autowired
-    //private IRecetaDAO service;
     private IRecetaService service;
 
     @GetMapping(value="/create" )
@@ -28,17 +27,17 @@ public class RecetaController {
         model.addAttribute("receta",receta);
         return "receta/form";
     }
+
     @PostMapping(value="/save" )
     public String save(Receta receta,Model model){
-       //si hago con dao realizo un if con el id==null
         try{
             service.save(receta);
         }catch (Exception ex){
             model.addAttribute("error: ",ex.toString());
         }
-
            return "redirect:/receta/list";
     }
+
     @GetMapping(value="/retrieve/{id}" )
     public String retrieve(@PathVariable(value = "id") Integer id,
         Model model){
@@ -46,6 +45,7 @@ public class RecetaController {
         model.addAttribute("receta",receta);
         return "receta/card";
     }
+
     @GetMapping(value="/update/{id}" )
     public String update(@PathVariable(value = "id") Integer id,
                            Model model){
@@ -53,6 +53,7 @@ public class RecetaController {
         model.addAttribute("receta",receta);
         return "receta/form";
     }
+
     @GetMapping(value="/delete" )
     public String delete(@PathVariable(value = "id") Integer id,
                          Model model){
@@ -61,8 +62,7 @@ public class RecetaController {
         }catch (Exception ex){
             model.addAttribute("error: ",ex.toString());
         }
-
-        return "redirect:/receta/List";
+        return "redirect:/receta/list";
     }
 
     @GetMapping(value="/list" )

@@ -17,9 +17,8 @@ import java.util.List;
 @Controller
 @RequestMapping(value="/medicamento")
 public class MedicamentoController {
-    //servicio => Inyeccion de dependencias
+
     @Autowired
-    //private IMedicamentoDAO service;
     private IMedicamentoService service;
 
     @GetMapping(value="/create" )
@@ -28,9 +27,9 @@ public class MedicamentoController {
         model.addAttribute("medicamento",medicamento);
         return "medicamento/form";
     }
+
     @PostMapping(value="/save" )
     public String save(Medicamento medicamento,Model model){
-        //si hago con dao realizo un if con el id==null
         try{
             service.save(medicamento);
         }catch (Exception ex){
@@ -39,6 +38,7 @@ public class MedicamentoController {
 
         return "redirect:/medicamento/list";
     }
+
     @GetMapping(value="/retrieve/{id}" )
     public String retrieve(@PathVariable(value = "id") Integer id,
                            Model model){
@@ -46,6 +46,7 @@ public class MedicamentoController {
         model.addAttribute("medicamento",medicamento);
         return "medicamento/card";
     }
+
     @GetMapping(value="/update/{id}" )
     public String update(@PathVariable(value = "id") Integer id,
                          Model model){
@@ -53,6 +54,7 @@ public class MedicamentoController {
         model.addAttribute("medicamento",medicamento);
         return "medicamento/form";
     }
+
     @GetMapping(value="/delete" )
     public String delete(@PathVariable(value = "id") Integer id,
                          Model model){
@@ -62,7 +64,7 @@ public class MedicamentoController {
             model.addAttribute("error: ",ex.toString());
         }
 
-        return "redirect:/medicamento/List";
+        return "redirect:/medicamento/list";
     }
 
     @GetMapping(value="/list" )

@@ -17,7 +17,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value="/paciente")
 public class PacienteController {
-    //servicio => Inyeccion de dependencias
+
     @Autowired
     //private IPacienteDAO service;
     private IPacienteService service;
@@ -28,17 +28,17 @@ public class PacienteController {
         model.addAttribute("paciente",paciente);
         return "paciente/form";
     }
+
     @PostMapping(value="/save" )
     public String save(Paciente paciente,Model model){
-        //si hago con dao realizo un if con el id==null
         try{
             service.save(paciente);
         }catch (Exception ex){
             model.addAttribute("error: ",ex.toString());
         }
-
         return "redirect:/paciente/list";
     }
+
     @GetMapping(value="/retrieve/{id}" )
     public String retrieve(@PathVariable(value = "id") Integer id,
                            Model model){
@@ -46,6 +46,7 @@ public class PacienteController {
         model.addAttribute("paciente",paciente);
         return "paciente/card";
     }
+
     @GetMapping(value="/update/{id}" )
     public String update(@PathVariable(value = "id") Integer id,
                          Model model){
@@ -53,6 +54,7 @@ public class PacienteController {
         model.addAttribute("paciente",paciente);
         return "paciente/form";
     }
+
     @GetMapping(value="/delete" )
     public String delete(@PathVariable(value = "id") Integer id,
                          Model model){
@@ -61,8 +63,7 @@ public class PacienteController {
         }catch (Exception ex){
             model.addAttribute("error: ",ex.toString());
         }
-
-        return "redirect:/paciente/List";
+        return "redirect:/paciente/list";
     }
 
     @GetMapping(value="/list" )
