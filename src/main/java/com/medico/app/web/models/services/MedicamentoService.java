@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.medico.app.web.models.dao.IMedicamentoDAO;
 import com.medico.app.web.models.entities.Medicamento;
@@ -15,26 +16,26 @@ public class MedicamentoService implements IMedicamentoService {
 	private IMedicamentoDAO dao;
 	
 	@Override
+	@Transactional
 	public void save(Medicamento medicamento) {
-		// TODO Auto-generated method stub
 		dao.save(medicamento);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Medicamento findById(Integer id) {
-		// TODO Auto-generated method stub
 		return dao.findById(id).get();
 	}
 
 	@Override
+	@Transactional
 	public void delete(Integer id) {
-		// TODO Auto-generated method stub
 		dao.deleteById(id);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Medicamento> findAll() {
-		// TODO Auto-generated method stub
 		return (List<Medicamento>) dao.findAll();
 	}
 
